@@ -18,7 +18,7 @@ Verifikasi dilakukan 2 November 2026 dengan data uji sintetis, bukan laporan lap
 | Browser E2E: izin GPS ditolak dan teks dipertahankan             | Lulus                                                            |
 | Compose PostgreSQL/API/web/proxy                                 | Berjalan; endpoint readiness siap                                |
 | Snapshot database/media dan restore terisolasi                   | Checksum valid; 1 Admin dan 0 laporan dipulihkan ke database uji |
-| Model terlatih >=80% pada test set                               | Belum tersedia; menunggu Anda menjalankan Colab                  |
+| Model terlatih >=80% pada test set                               | Lulus: 97,32% pada 336 gambar testing di Colab T4                |
 | Uji APK pada Android fisik                                       | Menunggu build EAS dan instalasi perangkat                       |
 | Video pengumpulan                                                | Menunggu rekaman setelah integrasi final                         |
 
@@ -26,4 +26,4 @@ Sumber lisensi dataset telah diperiksa melalui metadata resmi UCI, dataset ID 90
 
 Peringatan tooling saat pengujian: Starlette memberikan deprecation warning untuk integrasi httpx TestClient. Tes tetap lulus. Audit dependency JS menemukan dua advisory moderate dan tidak menemukan high/critical. Dependensi transitif tooling Expo: [minimatch globparts amplification](https://github.com/advisories/GHSA-g3hv-75wg-m249) dan [glob cancellation bypass](https://github.com/advisories/GHSA-3g3m-2fjr-6pw4). Keduanya terkait pemrosesan glob filesystem, bukan endpoint upload aplikasi. Pembaruan mengikuti kompatibilitas SDK Expo; tidak dipaksa lintas major tanpa pengujian native.
 
-Keberhasilan source/build tidak menandakan persyaratan ML, APK, dan video sudah selesai. Checklist pengumpulan tetap memisahkan hasil yang sudah diverifikasi dari artefak eksternal yang belum ada.
+Model nyata dan evaluasi testing sudah diverifikasi; APK dan video masih memerlukan penyelesaian terpisah. Checklist pengumpulan tetap memisahkan hasil yang sudah diverifikasi dari artefak eksternal yang belum ada.

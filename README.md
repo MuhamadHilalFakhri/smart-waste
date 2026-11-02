@@ -6,7 +6,7 @@ Sistem pelaporan sampah dengan website Next.js, aplikasi Android Expo, backend F
 
 Demo: [Smart Waste](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com). Daftar sebagai User untuk mencoba laporan. Kredensial Admin disimpan privat oleh pemilik deployment.
 
-Kode aplikasi, migrasi, kontrak API, notebook Colab, konfigurasi deployment, dan panduan tersedia. Dataset telah disiapkan: 2.234 gambar unik dengan manifest yang dapat direproduksi. Model terlatih, evaluasi testing, APK, dan video diverifikasi terpisah melalui [checklist pengumpulan](docs/submission.md).
+Kode aplikasi, migrasi, kontrak API, notebook Colab, konfigurasi deployment, dan panduan tersedia. Dataset berisi 2.234 gambar unik. Model nyata hasil Colab mencapai **97,32% accuracy pada 336 gambar testing** dan telah aktif di demo; lihat [evaluasi lengkap](ml/evaluation/README.md). APK dan video diverifikasi terpisah melalui [checklist pengumpulan](docs/submission.md).
 
 ## Struktur
 
@@ -69,7 +69,7 @@ Project Expo pemilik adalah [maykiddd/smart-waste](https://expo.dev/accounts/may
 
 Buka [notebook training](ml/Smart_Waste_Training.ipynb) di Google Colab, pilih GPU, dan ikuti [panduan ML](ml/README.md). Setelah selesai, ekstrak artefak ke `ml/artifacts/`. Rebuild/restart API dengan TensorFlow terpasang (`pip install -e '.[ml]'` untuk lokal). `/api/health` menunjukkan `model_loaded`.
 
-Tanpa model, laporan manual tetap dapat dibuat dan AI mengembalikan 503 dengan pesan yang jelas. Pengumpulan final mensyaratkan model asli, evaluasi test asli, dan accuracy >=80%; belum ada klaim akurasi sampai notebook dijalankan. Jika hasil kurang dari target, catat apa adanya dan perbaiki eksperimen berdasarkan validation set.
+Tanpa model, laporan manual tetap dapat dibuat dan AI mengembalikan 503 dengan pesan yang jelas. Model demo saat ini sudah terpasang, accuracy testing aktual 97,32%, melampaui target 80%. Evaluasi ini berlaku pada subset tiga kelas RealWaste; model tidak memiliki kelas 'bukan sampah' dan kategori tetap dapat dikoreksi User.
 
 ## Kontrak API dan pengujian
 

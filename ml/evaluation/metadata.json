@@ -1,0 +1,17 @@
+{
+  "version": "mobilenetv2-20261102T140525Z",
+  "labels": [
+    "organic",
+    "paper",
+    "plastic"
+  ],
+  "input_size": [
+    224,
+    224
+  ],
+  "preprocessing": "embedded_mobilenet_v2",
+  "resize": "PIL_BILINEAR",
+  "tensorflow": "2.20.0",
+  "seed": 42,
+  "sha256": "8dad4fd02b22995442def54afa1407db00e078890c614e392c7ed5836f455840"
+}

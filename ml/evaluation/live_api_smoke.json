@@ -1,0 +1,31 @@
+{
+  "tested_at": "2026-11-02T14:11:15.821470+00:00",
+  "origin": "https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com",
+  "model_loaded": true,
+  "samples": [
+    {
+      "expected": "organic",
+      "predicted": "organic",
+      "confidence": 0.9988993406295776,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    },
+    {
+      "expected": "paper",
+      "predicted": "paper",
+      "confidence": 0.9768820405006409,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    },
+    {
+      "expected": "plastic",
+      "predicted": "plastic",
+      "confidence": 0.9999220371246338,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    }
+  ],
+  "manual_category_preserved": true,
+  "prediction_records_after_photo_edit": 2,
+  "final_status": "completed",
+  "final_edit_denied": true,
+  "test_report_archived": true,
+  "synthetic_user_disabled": true
+}
