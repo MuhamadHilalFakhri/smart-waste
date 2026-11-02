@@ -1,0 +1,167 @@
+{
+  "source": "https://archive.ics.uci.edu/static/public/908/realwaste.zip",
+  "source_sha256": "1ede08b32358ee62065bcc1c8cb47a2ece04e8dff5b1fb53342bb8750895b2f3",
+  "seed": 42,
+  "mapping": {
+    "Food Organics": "organic",
+    "Vegetation": "organic",
+    "Paper": "paper",
+    "Plastic": "plastic"
+  },
+  "unique_images": 2234,
+  "counts": {
+    "organic": 838,
+    "paper": 489,
+    "plastic": 907
+  },
+  "split_counts": {
+    "train/organic": 586,
+    "test/organic": 126,
+    "validation/organic": 126,
+    "validation/paper": 73,
+    "train/paper": 342,
+    "test/paper": 74,
+    "train/plastic": 635,
+    "test/plastic": 136,
+    "validation/plastic": 136
+  },
+  "duplicate_policy": "SHA256 or dHash Hamming <=4; conflicting-label groups excluded",
+  "rejected": [
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_7.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_71.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_73.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_74.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_75.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_76.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_17.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_140.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_325.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_339.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_341.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_354.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_359.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_362.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_396.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_328.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_834.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Food Organics/Food Organics_82.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_354.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_355.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_360.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_292.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_282.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_320.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_327.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_489.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_500.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_734.jpg",
+      "reason": "cross_label_duplicate_group"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Paper/Paper_342.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_797.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_355.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_57.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_823.jpg",
+      "reason": "duplicate"
+    },
+    {
+      "source_path": "realwaste-main/RealWaste/Plastic/Plastic_845.jpg",
+      "reason": "duplicate"
+    }
+  ]
+}
