@@ -2,6 +2,8 @@
 
 Verifikasi dilakukan 2 November 2026 dengan data uji sintetis, bukan laporan lapangan.
 
+[CI GitHub pada commit 45a292d](https://github.com/MuhamadHilalFakhri/smart-waste/actions/runs/41456519419) memverifikasi backend PostgreSQL, kontrak API, TypeScript, unit test, build web, export Android, dan browser E2E. Panduan menjalankan kembali demo dan memasang model ada di [operasional](operations.md).
+
 | Pemeriksaan                                                      | Hasil                                                            |
 | ---------------------------------------------------------------- | ---------------------------------------------------------------- |
 | Backend auth/role/ownership/workflow/media/GPS/CSRF/refresh      | 18 tes lulus pada SQLite lokal                                   |
