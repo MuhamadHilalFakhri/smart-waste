@@ -1,0 +1,96 @@
+name: smart-waste
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: smart_waste
+      POSTGRES_USER: smart_waste
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U smart_waste -d smart_waste"]
+      interval: 5s
+      retries: 20
+    networks: [private]
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+      target: runtime
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://smart_waste:${POSTGRES_PASSWORD}@db:5432/smart_waste
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
+      ALLOWED_ORIGINS: '["${PUBLIC_ORIGIN:?Set PUBLIC_ORIGIN}"]'
+      COOKIE_SECURE: ${COOKIE_SECURE:-true}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?Set ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD}
+      STORAGE_DIR: /data/media
+      MODEL_DIR: /models
+    volumes:
+      - media:/data/media
+      - ../ml/artifacts:/models:ro
+    depends_on:
+      db: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          CMD,
+          python,
+          -c,
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/ready')",
+        ]
+      interval: 10s
+      start_period: 90s
+      retries: 12
+    networks: [private]
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.web
+    restart: unless-stopped
+    environment:
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+      INTERNAL_API_URL: http://api:8000
+    networks: [private]
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["${BIND_ADDRESS:-127.0.0.1}:${APP_PORT:-8080}:8080"]
+    volumes: ["./Caddyfile:/etc/caddy/Caddyfile:ro"]
+    depends_on:
+      api: { condition: service_healthy }
+      web: { condition: service_started }
+    networks: [private]
+  test-db:
+    image: postgres:17-alpine
+    profiles: [test]
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test-only
+      POSTGRES_DB: smart_waste_test
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U test -d smart_waste_test"]
+      interval: 3s
+      retries: 20
+    networks: [private]
+  test-api:
+    profiles: [test]
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+      target: test
+    environment:
+      JWT_SECRET: test-only-signing-key-at-least-32-characters
+      TEST_DATABASE_URL: postgresql+psycopg://test:test-only@test-db:5432/smart_waste_test
+    depends_on:
+      test-db: { condition: service_healthy }
+    networks: [private]
+networks:
+  private:
+volumes:
+  database:
+  media:
