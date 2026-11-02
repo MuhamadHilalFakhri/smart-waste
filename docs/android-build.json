@@ -1,0 +1,14 @@
+{
+  "build_id": "4601d205-bf55-45b4-addc-58697450fcae",
+  "status": "FINISHED",
+  "artifact_url": "https://expo.dev/artifacts/eas/cHvWcvuRP9enjlsMN1UHeCunis7s8IUa5qLRsRkG_8o.apk",
+  "apk_bytes": 68200514,
+  "sha256": "882611220e2770c9a39a3c1c32ee823a05216c843bd08a59908277b9e22543b1",
+  "signing_verified": true,
+  "signature_scheme": "v2",
+  "certificate_sha256": "bbe7e20d50e57eadcf47e1c382ffe4b5f860b8b81428a871c4a26153aa7c121e",
+  "verifier": "Google Android apksig 9.5.0",
+  "production_api_embedded": true,
+  "metro_required": false,
+  "physical_device_test": "pending"
+}
