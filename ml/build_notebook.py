@@ -14,8 +14,8 @@ def cell(kind, source):
 
 cells = [
     cell("markdown", "# Smart Waste: training dan evaluasi\nPilih Runtime > Change runtime type > T4 GPU. Notebook ini berisi source persiapan dan training agar tidak membutuhkan repository yang sudah dipublikasikan.\n\nDataset: RealWaste, Single, Iranmanesh & Raad (2023), UCI, https://doi.org/10.24432/C5SS4G. Tinjau lisensi sumber sebelum menjalankan atau mendistribusikan dataset. Target testing 80% harus dibuktikan; notebook tidak menjanjikan hasil."),
-    cell("code", "%pip install -q tensorflow==2.20.0 keras==3.12.0 numpy==2.2.6 Pillow==12.1.1 scikit-learn==1.7.2 matplotlib==3.10.7\n# Jika Colab meminta restart runtime, lakukan lalu lanjut dari sel berikutnya."),
-    cell("code", "import os\nos.chdir('/content')\nimport tensorflow as tf\nprint('TensorFlow:', tf.__version__)\nprint('GPU:', tf.config.list_physical_devices('GPU'))"),
+    cell("code", "%pip install -q tensorflow==2.20.0 keras==3.12.0 numpy==2.2.6 Pillow==12.1.1 scikit-learn==1.7.2 matplotlib==3.10.7\nimport sys\nfrom importlib.metadata import version\nloaded_numpy = sys.modules.get('numpy')\nif loaded_numpy is not None and loaded_numpy.__version__ != version('numpy'):\n    raise RuntimeError('NumPy kernel masih versi lama. Pilih Runtime > Restart session and run all. Instalasi yang sudah selesai tetap tersimpan.')"),
+    cell("code", "import os\nos.chdir('/content')\nimport tensorflow as tf\nprint('TensorFlow:', tf.__version__)\ngpus = tf.config.list_physical_devices('GPU')\nprint('GPU:', gpus)\nif not gpus:\n    raise RuntimeError('GPU belum terdeteksi. Pilih Runtime > Change runtime type > T4 GPU lalu hubungkan kembali.')"),
     cell("markdown", "## Persiapan dataset\nHanya Food Organics, Vegetation, Paper, dan Plastic digunakan. Pemeriksaan duplikasi dilakukan sebelum split. Simpan manifest asli; jangan ubah test set berdasarkan hasil model."),
     cell("code", (ROOT / "prepare_dataset.py").read_text(encoding="utf-8").split('if __name__ == "__main__":')[0]),
     cell("code", "prepare('/content/data')"),

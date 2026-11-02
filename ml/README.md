@@ -2,6 +2,8 @@
 
 Buka `Smart_Waste_Training.ipynb` di Google Colab dan pilih GPU T4. Jalankan sel secara berurutan. Source notebook berasal dari `prepare_dataset.py` dan `train.py`; setelah mengubah source, jalankan `python build_notebook.py`.
 
+Instalasi pertama dapat mengganti NumPy yang sudah dimuat kernel Colab. Bila sel instalasi meminta restart atau import menampilkan ketidakcocokan NumPy, pilih **Runtime > Restart session and run all**. Restart sesi mempertahankan paket/file runtime yang sudah dipasang. Peringatan resolver tentang paket bawaan seperti tensorflow-text/tf-keras tidak menjadi dependensi pipeline ini; konfirmasi versi TensorFlow dan GPU pada sel berikutnya sebelum training.
+
 ## Dataset
 
 RealWaste: Single, S., Iranmanesh, S., & Raad, R. (2023). UCI Machine Learning Repository. DOI: https://doi.org/10.24432/C5SS4G. Halaman sumber: https://archive.ics.uci.edu/dataset/908/realwaste. Lisensi yang dicantumkan UCI adalah CC BY 4.0; verifikasi halaman sumber dan simpan salinan atribusi bersama distribusi dataset. Jangan mengubah lisensi dataset menjadi lisensi kode proyek.
