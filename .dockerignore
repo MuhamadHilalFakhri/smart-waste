@@ -1,0 +1,14 @@
+**/node_modules
+**/.venv
+**/.next
+**/.expo
+**/dist
+**/__pycache__
+.git
+**/.env
+**/.env.*
+!**/.env.example
+ml/data
+ml/artifacts
+infra/backups
+services/api/storage
