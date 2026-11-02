@@ -3,6 +3,7 @@
 Build EAS 4601d205-bf55-45b4-addc-58697450fcae selesai pada 2 November 2026. Profil preview menghasilkan APK release internal dengan JavaScript/Hermes bundle tertanam dan URL API demo HTTPS yang sebenarnya.
 
 - [Halaman instalasi EAS](https://expo.dev/accounts/maykiddd/projects/smart-waste/builds/4601d205-bf55-45b4-addc-58697450fcae)
+- [Release APK public beserta checksum](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-android)
 - Salinan lokal pemilik: apps/mobile/dist/smart-waste-preview.apk (diabaikan Git).
 - Ukuran: 68.200.514 byte.
 - SHA256: 882611220e2770c9a39a3c1c32ee823a05216c843bd08a59908277b9e22543b1.

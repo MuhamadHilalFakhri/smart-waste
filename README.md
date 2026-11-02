@@ -6,6 +6,8 @@ Sistem pelaporan sampah dengan website Next.js, aplikasi Android Expo, backend F
 
 Demo: [Smart Waste](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com). Daftar sebagai User untuk mencoba laporan. Kredensial Admin disimpan privat oleh pemilik deployment.
 
+Unduh [APK Android preview](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-android) dan [model serta hasil Colab](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-ml). Kedua release menyediakan checksum; APK masih memerlukan uji penerimaan pada perangkat fisik.
+
 Kode aplikasi, migrasi, kontrak API, notebook Colab, konfigurasi deployment, dan panduan tersedia. Dataset berisi 2.234 gambar unik. Model nyata hasil Colab mencapai **97,32% accuracy pada 336 gambar testing** dan telah aktif di demo; lihat [evaluasi lengkap](ml/evaluation/README.md). APK dan video diverifikasi terpisah melalui [checklist pengumpulan](docs/submission.md).
 
 ## Struktur

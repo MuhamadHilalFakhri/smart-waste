@@ -36,7 +36,7 @@ Baris adalah label sebenarnya, kolom adalah prediksi. Terdapat 3 Paper → Plast
 - [Smoke test API nyata](live_api_smoke.json) memakai sampel testing pertama per kelas, seluruhnya diprediksi sesuai label. Ini pemeriksaan integrasi tiga sampel, terpisah dari evaluasi 336 gambar.
 - Koreksi kategori manual, dua prediksi setelah penggantian foto, transisi sampai Completed, dan penolakan edit final berhasil diperiksa. Akun/laporan sintetis dinonaktifkan/diarsipkan setelah uji.
 
-Model dan ZIP hasil asli disimpan di `ml/artifacts` secara lokal, di luar Git biasa. Rilis model akan memuat model, metadata, evaluasi, checkpoint, manifest, dan checksum. File evaluasi kecil di direktori ini adalah keluaran asli Colab; tidak ada angka contoh atau hasil mock.
+Model dan ZIP hasil asli disimpan di `ml/artifacts` secara lokal, di luar Git biasa. [Release model public](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-ml) memuat model, metadata, evaluasi, checkpoint, manifest, dan checksum. File evaluasi kecil di direktori ini adalah keluaran asli Colab; tidak ada angka contoh atau hasil mock. Runtime GPU Colab telah dilepas setelah salinan artefak dan integrasi API diverifikasi; notebook di Drive tetap tersimpan.
 
 ## Batas penggunaan
 
