@@ -5,8 +5,8 @@ Status di bawah adalah status artefak, bukan klaim semua hasil eksternal sudah s
 | Ketentuan                | Lokasi / tindakan                                                                                    | Status                                               |
 | ------------------------ | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
 | Repository GitHub public | [MuhamadHilalFakhri/smart-waste](https://github.com/MuhamadHilalFakhri/smart-waste)                  | Source diterbitkan setelah review secret             |
-| Demo website             | [Smart Waste HTTPS](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com)         | Aktif; model nyata terpasang                         |
-| APK Android              | [Release APK](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-android)         | APK signed selesai; uji Android fisik menunggu       |
+| Demo website             | Perlu deployment HTTPS baru                                                                     | Sandbox lama dihapus pada 3 November 2026             |
+| APK Android              | [Release APK](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-android)         | APK signed; perlu backend aktif dan uji Android fisik |
 | Dokumentasi API          | docs/api.md, OpenAPI JSON, /api/docs                                                                 | Source tersedia                                      |
 | Schema / ERD             | docs/architecture.md, migrasi SQL Node.js                                                             | Source tersedia                                      |
 | Source/model ML          | [Source dan release model](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-ml) | Model Colab aktif; release public tersedia           |

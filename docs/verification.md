@@ -2,13 +2,15 @@
 
 ## Migrasi Node.js dan FastAPI ML, 3 November 2026
 
-Backend bisnis dipindahkan ke Node.js/Fastify; FastAPI hanya mengerjakan inferensi. Pengujian integrasi PostgreSQL 17 terisolasi: 21 tes lulus, termasuk workflow, kepemilikan, cookie/CSRF, refresh replay serentak, dan perlindungan Admin terakhir. Dua tes unit Node.js untuk normalisasi foto dan fallback ML serta dua tes Python untuk layanan ML/preprocessing juga lulus. TypeScript seluruh workspace, unit test client/web, build Next.js, dan export Android lulus.
+Backend bisnis dipindahkan ke Node.js/Fastify; FastAPI hanya mengerjakan inferensi. Pengujian integrasi PostgreSQL 17 terisolasi: 21 tes lulus, termasuk workflow, kepemilikan, cookie/CSRF, refresh replay serentak, dan perlindungan Admin terakhir. Dua tes unit Node.js untuk normalisasi foto dan fallback ML serta dua tes Python untuk layanan ML/preprocessing juga lulus. TypeScript seluruh workspace, unit test client/web, build Next.js, dan export Android lulus. Hasil prediksi dan kesiapan ada di [pemeriksaan model](backend-migration-checks.json); alur laporan API langsung ada di [hasil API](backend-node-live-api.json).
 
 Snapshot database/media deployment lama dipulihkan pada Compose terisolasi. Login hash Argon2 lama, access JWT lama, rotasi refresh lama, foto lama yang identik checksum, kategori manual, perubahan status, dan arsip berhasil diuji. Model asli pada layanan ML terpisah memprediksi gambar testing organik, kertas, dan plastik dengan benar, menggunakan versi `mobilenetv2-20261102T140525Z`. Pengujian ini memverifikasi migrasi dan integrasi; angka accuracy testing tetap berasal dari evaluasi Colab yang diarsipkan.
 
+Demo Node.js dengan model nyata sempat berjalan setelah migrasi, lalu container, image proyek, volume data, cache build, dan source di sandbox dihapus atas permintaan pemilik pada 3 November 2026. URL lama kini tidak melayani aplikasi. Backup privat pra-migrasi tetap tersedia lokal di `D:\Assesment\infra\backups`.
+
 Catatan di bawah mempertahankan hasil verifikasi implementasi awal sebelum migrasi.
 
-Verifikasi dilakukan 2 November 2026 dengan data uji sintetis, bukan laporan lapangan.
+Verifikasi dilakukan 2 November 2026 dengan data uji sintetis, bukan laporan lapangan; tabel ini mencatat kondisi pada tanggal tersebut.
 
 [CI GitHub pada commit 45a292d](https://github.com/MuhamadHilalFakhri/smart-waste/actions/runs/41456519419) memverifikasi backend PostgreSQL, kontrak API, TypeScript, unit test, build web, export Android, dan browser E2E. Panduan menjalankan kembali demo dan memasang model ada di [operasional](operations.md).
 

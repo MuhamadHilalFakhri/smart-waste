@@ -1,18 +1,17 @@
-# Operasional demo
+# Operasional deployment
 
-## Deployment saat ini
+## Status deployment
 
 - Repository: [smart-waste](https://github.com/MuhamadHilalFakhri/smart-waste).
-- Website: [Smart Waste](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com).
-- OpenAPI interaktif: [API docs](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com/api/docs).
-- Sandbox: `codex-large`; workspace `/home/agent/workspace/smart-waste`.
-- API Node.js, FastAPI ML, dan DB hanya di network Compose. Port publik hanya proxy 8080.
+- Deployment sandbox lama dihapus atas permintaan pemilik pada 3 November 2026, termasuk container, image proyek, database/media, source salinan, dan cache build.
+- Sandbox `codex-large` masih ada, tetapi workspace `/home/agent/workspace/smart-waste` telah dihapus. URL demo lama tidak lagi melayani aplikasi.
+- Backup database/media dan source privat sebelum migrasi tersedia di `D:\Assesment\infra\backups`. File environment lokal tetap diabaikan Git.
 
-File environment demo disimpan privat di sandbox `infra/.env`. Salinan lokal pemilik ada di `D:\Assesment\infra\.env.demo`, diabaikan Git. Jangan mengunggah salinan ini, menampilkannya saat rekaman, atau memasukkannya ke issue. Seed Admin bersifat idempotent dan tidak mengganti password akun yang sudah dibuat.
+File environment deployment berikutnya harus disimpan privat sebagai `infra/.env`. Salinan kredensial lama tersimpan privat di `D:\Assesment\infra\.env.demo`, diabaikan Git. Jangan mengunggah file ini, menampilkannya saat rekaman, atau memasukkannya ke issue.
 
 ## Memulai kembali
 
-Setelah sandbox restart, dari terminal di workspace sandbox:
+Untuk menjalankan deployment baru, siapkan sandbox dan konfigurasi privat, lalu jalankan:
 
 ```sh
 cd /home/agent/workspace/smart-waste

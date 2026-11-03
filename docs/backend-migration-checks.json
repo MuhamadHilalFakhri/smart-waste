@@ -1,0 +1,31 @@
+{
+  "verified_at": "2026-11-03T11:03:49.784182+00:00",
+  "readiness": {
+    "status": "ready",
+    "model_loaded": true,
+    "backend": "nodejs"
+  },
+  "old_access_jwt": true,
+  "old_refresh_rotation": true,
+  "old_argon2_login": true,
+  "old_photo_unchanged": true,
+  "manual_category_preserved": true,
+  "workflow_and_archive": true,
+  "real_predictions": {
+    "organic": {
+      "category": "organic",
+      "confidence": 0.9988993406295776,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    },
+    "paper": {
+      "category": "paper",
+      "confidence": 0.9768820405006409,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    },
+    "plastic": {
+      "category": "plastic",
+      "confidence": 0.9999220371246338,
+      "model_version": "mobilenetv2-20261102T140525Z"
+    }
+  }
+}

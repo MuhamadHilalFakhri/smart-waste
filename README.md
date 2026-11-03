@@ -4,7 +4,7 @@ Sistem pelaporan sampah dengan website Next.js, aplikasi Android Expo, backend N
 
 ## Status pengumpulan
 
-Demo: [Smart Waste](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com). Daftar sebagai User untuk mencoba laporan. Kredensial Admin disimpan privat oleh pemilik deployment.
+Demo sandbox telah dihapus atas permintaan pemilik pada 3 November 2026. Source tetap ada di repository; untuk demo baru, siapkan sandbox dan ikuti panduan deployment di bawah. Kredensial Admin tersimpan privat di environment lokal pemilik.
 
 Unduh [APK Android preview](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-android) dan [model serta hasil Colab](https://github.com/MuhamadHilalFakhri/smart-waste/releases/tag/v0.1.0-ml). Kedua release menyediakan checksum; APK masih memerlukan uji penerimaan pada perangkat fisik.
 
@@ -107,7 +107,7 @@ Dokumentasi interaktif: `/api/docs`; [panduan API](docs/api.md), [arsitektur dan
 
 ## Deployment di sandbox
 
-Salin source bersih ke workspace sandbox, siapkan `infra/.env` dan model secara terpisah, kemudian jalankan bootstrap. Publikasikan hanya port proxy: `sbx --cloud ports codex-large --publish 8080`. Gunakan URL HTTPS yang dikembalikan sebagai PUBLIC_ORIGIN dan API URL APK. Pembukaan URL publik dilakukan setelah review konfigurasi dan data.
+Siapkan sandbox baru, salin source repository, isi `infra/.env` dan pasang model secara terpisah, kemudian jalankan bootstrap. Publikasikan port proxy 8080 lewat Docker Sandbox CLI. Tetapkan URL HTTPS baru sebagai PUBLIC_ORIGIN dan API URL sebelum membangun APK.
 
 Sandbox Anda memakai timer restart 24 jam. Setelah restart, jalankan kembali `sh infra/bootstrap.sh` bila layanan belum pulih. Satu perintah pemulihan adalah cakupan demo yang disepakati; proyek tidak menjanjikan hosting tanpa interupsi. Compute Docker ditagihkan selama sandbox hidup, termasuk ketika aplikasi idle.
 
