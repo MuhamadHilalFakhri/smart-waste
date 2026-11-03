@@ -11,7 +11,8 @@
     "build": "pnpm --filter @smart-waste/web build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r --if-present test",
-    "api:generate": "pnpm --filter @smart-waste/api-client generate"
+    "api:generate": "pnpm --filter @smart-waste/api openapi && pnpm --filter @smart-waste/api-client generate",
+    "dev:api": "pnpm --filter @smart-waste/api dev"
   },
   "devDependencies": {
     "@playwright/test": "^1.64.1",

@@ -2,7 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Smart Waste API",
-    "version": "1.0.0"
+    "version": "1.1.0",
+    "description": "Backend Node.js/Fastify untuk website dan Android. Prediksi diteruskan ke layanan FastAPI ML privat."
   },
   "paths": {
     "/api/health": {
@@ -1057,22 +1058,22 @@
           },
           "latitude": {
             "type": "number",
-            "maximum": 90.0,
-            "minimum": -90.0,
+            "maximum": 90,
+            "minimum": -90,
             "title": "Latitude"
           },
           "longitude": {
             "type": "number",
-            "maximum": 180.0,
-            "minimum": -180.0,
+            "maximum": 180,
+            "minimum": -180,
             "title": "Longitude"
           },
           "accuracy": {
             "anyOf": [
               {
                 "type": "number",
-                "maximum": 100000.0,
-                "minimum": 0.0
+                "maximum": 100000,
+                "minimum": 0
               },
               {
                 "type": "null"
@@ -1115,22 +1116,22 @@
           },
           "latitude": {
             "type": "number",
-            "maximum": 90.0,
-            "minimum": -90.0,
+            "maximum": 90,
+            "minimum": -90,
             "title": "Latitude"
           },
           "longitude": {
             "type": "number",
-            "maximum": 180.0,
-            "minimum": -180.0,
+            "maximum": 180,
+            "minimum": -180,
             "title": "Longitude"
           },
           "accuracy": {
             "anyOf": [
               {
                 "type": "number",
-                "maximum": 100000.0,
-                "minimum": 0.0
+                "maximum": 100000,
+                "minimum": 0
               },
               {
                 "type": "null"
