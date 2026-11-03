@@ -18,24 +18,37 @@ jobs:
           --health-retries 10
     env:
       JWT_SECRET: test-only-ci-signing-secret-at-least-32-chars
-      DATABASE_URL: postgresql+psycopg://test:test@localhost:5432/smart_waste_test
-      TEST_DATABASE_URL: postgresql+psycopg://test:test@localhost:5432/smart_waste_test
-    defaults:
-      run:
-        working-directory: services/api
+      ML_SERVICE_TOKEN: test-only-internal-service-secret-32-characters
+      DATABASE_URL: postgresql://test:test@localhost:5432/smart_waste_test
+      TEST_DATABASE_URL: postgresql://test:test@localhost:5432/smart_waste_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10.32.1 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @smart-waste/api typecheck
+      - run: pnpm exec prettier --check services/api/src services/api/tests
+      - run: pnpm --filter @smart-waste/api build
+      - run: pnpm --filter @smart-waste/api migrate
+      - run: pnpm --filter @smart-waste/api test
+      - run: pnpm --filter @smart-waste/api test:integration
+      - run: pnpm --filter @smart-waste/api openapi
+      - run: git diff --exit-code -- packages/api-client/openapi.json
+  ml:
+    runs-on: ubuntu-latest
+    env:
+      ML_SERVICE_TOKEN: test-only-internal-service-secret-32-characters
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - run: pip install -e '.[test]'
-      - run: ruff check src tests
-      - run: alembic upgrade head
-      - run: alembic check
-      - run: pytest -q
-      - run: python -m smart_waste.cli openapi
-      - run: git diff --exit-code -- ../../packages/api-client/openapi.json
-      - run: python ../../ml/build_notebook.py
-      - run: git diff --exit-code -- ../../ml/Smart_Waste_Training.ipynb
+      - run: pip install -e 'services/ml[test]'
+      - run: ruff check services/ml/src services/ml/tests
+      - run: pytest services/ml/tests -q
+      - run: python ml/build_notebook.py
+      - run: git diff --exit-code -- ml/Smart_Waste_Training.ipynb
   clients:
     runs-on: ubuntu-latest
     steps:
@@ -57,29 +70,40 @@ jobs:
     runs-on: ubuntu-latest
     env:
       JWT_SECRET: isolated-ci-signing-key-at-least-32-characters
-      DATABASE_URL: sqlite:///./e2e.db
+      ML_SERVICE_TOKEN: isolated-ci-ml-secret-at-least-32-characters
+      DATABASE_URL: postgresql://test:test@localhost:5432/smart_waste_e2e_test
       ADMIN_EMAIL: admin@example.com
       ADMIN_PASSWORD: CiSyntheticPassword123!
       E2E_ADMIN_PASSWORD: CiSyntheticPassword123!
       ALLOWED_ORIGINS: '["http://localhost:3000"]'
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: smart_waste_e2e_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.12" }
       - uses: pnpm/action-setup@v4
         with: { version: 10.32.1 }
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
-      - run: pip install -e 'services/api[test]'
       - run: pnpm install --frozen-lockfile
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm build
       - name: Start isolated services
         run: |
           cd services/api
-          alembic upgrade head
-          python -m smart_waste.cli seed-admin
-          uvicorn smart_waste.main:app --host 127.0.0.1 --port 8000 > /tmp/api.log 2>&1 &
+          pnpm migrate
+          pnpm seed-admin
+          pnpm dev > /tmp/api.log 2>&1 &
           cd ../..
           pnpm --filter @smart-waste/web start > /tmp/web.log 2>&1 &
           for attempt in $(seq 1 60); do
