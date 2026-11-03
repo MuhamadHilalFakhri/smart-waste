@@ -1,21 +1,23 @@
-FROM python:3.12-slim AS runtime
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-WORKDIR /app
-COPY services/api/pyproject.toml ./
-COPY services/api/requirements.lock ./
-COPY services/api/src ./src
-RUN pip install --no-cache-dir -r requirements.lock && pip install --no-cache-dir --no-deps .
-COPY services/api/alembic.ini ./
-COPY services/api/migrations ./migrations
-RUN groupadd -r app && useradd -r -g app app && mkdir -p /data/media && chown -R app:app /data
+FROM node:22-bookworm-slim AS dependencies
+WORKDIR /workspace
+RUN corepack enable && corepack prepare pnpm@10.32.1 --activate
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY services/api/package.json ./services/api/package.json
+RUN pnpm install --filter @smart-waste/api --frozen-lockfile
+COPY services/api ./services/api
+
+FROM dependencies AS test
+WORKDIR /workspace/services/api
+CMD ["pnpm", "test:integration"]
+
+FROM dependencies AS build
+RUN pnpm --filter @smart-waste/api build
+
+FROM node:22-bookworm-slim AS runtime
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=8000
+WORKDIR /workspace/services/api
+COPY --from=build /workspace /workspace
+RUN groupadd -g 999 app && useradd -u 999 -g app app && mkdir -p /data/media && chown -R app:app /data
 USER app
 EXPOSE 8000
-CMD ["sh", "-c", "alembic upgrade head && python -m smart_waste.cli seed-admin && exec uvicorn smart_waste.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips '*'"]
-
-FROM runtime AS test
-USER root
-RUN pip install --no-cache-dir '.[test]'
-COPY services/api/tests /workspace/services/api/tests
-COPY ml/pixels.py /workspace/ml/pixels.py
-USER app
-CMD ["pytest", "-q", "/workspace/services/api/tests"]
+CMD ["sh", "-c", "node dist/cli.js migrate && node dist/cli.js seed-admin && exec node dist/server.js"]

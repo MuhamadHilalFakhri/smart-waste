@@ -21,26 +21,27 @@ services:
       target: runtime
     restart: unless-stopped
     environment:
-      DATABASE_URL: postgresql+psycopg://smart_waste:${POSTGRES_PASSWORD}@db:5432/smart_waste
+      DATABASE_URL: postgresql://smart_waste:${POSTGRES_PASSWORD}@db:5432/smart_waste
       JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET}
       ALLOWED_ORIGINS: '["${PUBLIC_ORIGIN:?Set PUBLIC_ORIGIN}"]'
       COOKIE_SECURE: ${COOKIE_SECURE:-true}
       ADMIN_EMAIL: ${ADMIN_EMAIL:?Set ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Set ADMIN_PASSWORD}
       STORAGE_DIR: /data/media
-      MODEL_DIR: /models
+      ML_SERVICE_URL: http://ml:8001
+      ML_SERVICE_TOKEN: ${ML_SERVICE_TOKEN:?Set ML_SERVICE_TOKEN}
+      TRUST_PROXY: "true"
     volumes:
       - media:/data/media
-      - ../ml/artifacts:/models:ro
     depends_on:
       db: { condition: service_healthy }
     healthcheck:
       test:
         [
           CMD,
-          python,
-          -c,
-          "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/ready')",
+          node,
+          -e,
+          "fetch('http://localhost:8000/api/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
         ]
       interval: 10s
       start_period: 90s
@@ -55,6 +56,29 @@ services:
       HOSTNAME: 0.0.0.0
       PORT: "3000"
       INTERNAL_API_URL: http://api:8000
+    networks: [private]
+  ml:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.ml
+      target: runtime
+    restart: unless-stopped
+    environment:
+      MODEL_DIR: /models
+      ML_SERVICE_TOKEN: ${ML_SERVICE_TOKEN:?Set ML_SERVICE_TOKEN}
+    volumes:
+      - ../ml/artifacts:/models:ro
+    healthcheck:
+      test:
+        [
+          CMD,
+          python,
+          -c,
+          "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')",
+        ]
+      interval: 10s
+      start_period: 90s
+      retries: 12
     networks: [private]
   proxy:
     image: caddy:2-alpine
@@ -85,7 +109,7 @@ services:
       target: test
     environment:
       JWT_SECRET: test-only-signing-key-at-least-32-characters
-      TEST_DATABASE_URL: postgresql+psycopg://test:test-only@test-db:5432/smart_waste_test
+      TEST_DATABASE_URL: postgresql://test:test-only@test-db:5432/smart_waste_test
     depends_on:
       test-db: { condition: service_healthy }
     networks: [private]
