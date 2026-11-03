@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from smart_waste.inference import Classifier, LABELS
+from smart_waste_ml.inference import Classifier, LABELS
 
 
 def test_inference_matches_colab_pixels_and_label_order(tmp_path):
