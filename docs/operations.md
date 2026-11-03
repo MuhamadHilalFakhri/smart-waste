@@ -6,7 +6,7 @@
 - Website: [Smart Waste](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com).
 - OpenAPI interaktif: [API docs](https://8080-001m6e4ck17dvek9788p0t5q4fm.sbx.sandboxes-cloud.docker.com/api/docs).
 - Sandbox: `codex-large`; workspace `/home/agent/workspace/smart-waste`.
-- API/DB hanya di network Compose. Port publik hanya proxy 8080.
+- API Node.js, FastAPI ML, dan DB hanya di network Compose. Port publik hanya proxy 8080.
 
 File environment demo disimpan privat di sandbox `infra/.env`. Salinan lokal pemilik ada di `D:\Assesment\infra\.env.demo`, diabaikan Git. Jangan mengunggah salinan ini, menampilkannya saat rekaman, atau memasukkannya ke issue. Seed Admin bersifat idempotent dan tidak mengganti password akun yang sudah dibuat.
 
@@ -34,8 +34,8 @@ Compose memiliki restart policy untuk container, tetapi tidak mengandalkan sandb
 1. Jalankan [notebook Colab](https://colab.research.google.com/github/MuhamadHilalFakhri/smart-waste/blob/main/ml/Smart_Waste_Training.ipynb) dengan GPU T4.
 2. Ekstrak ZIP hasil ke `ml/artifacts` secara lokal. Jalankan `python ml/verify_artifacts.py ml/artifacts` dengan dependensi ML terpasang.
 3. Review evaluasi testing asli, minimal 80%, label dan checksum. Simpan artefak asli sebelum melakukan perubahan. Jika kurang dari target, catat kegagalan; source yang berjalan tidak menggantikan kriteria ML.
-4. Salin isi artefak ke `ml/artifacts` di sandbox melalui kanal privat. Direktori ini di-mount read-only di API.
-5. Restart API: `docker compose --env-file infra/.env -f infra/compose.yaml restart api`. Periksa readiness menunjukkan model dimuat dan lakukan prediksi gambar nyata dari ketiga kelas.
+4. Salin isi artefak ke `ml/artifacts` di sandbox melalui kanal privat. Direktori ini di-mount read-only di layanan `ml`.
+5. Restart ML: `docker compose --env-file infra/.env -f infra/compose.yaml restart ml`. Periksa readiness Node.js menunjukkan model dimuat dan lakukan prediksi gambar nyata dari ketiga kelas.
 6. Uji alur lengkap web dan APK, termasuk koreksi kategori dan confidence rendah. Publikasikan model/evaluasi sebagai release artifacts setelah review, sertakan checksum model.
 
 ## Backup dan restore

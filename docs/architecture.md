@@ -1,16 +1,17 @@
 # Arsitektur dan ERD
 
-Smart Waste menggunakan backend FastAPI modular tunggal. Next.js dan Expo mengonsumsi kontrak OpenAPI yang sama; logika izin, status, statistik, dan klasifikasi akhir berada di backend. TensorFlow hanya diperlukan untuk inferensi ketika model Colab dipasang. Model tidak melakukan panggilan ke OpenAI dan tidak memerlukan API key untuk prediksi.
+Smart Waste menggunakan Node.js/Fastify untuk fitur bisnis dan FastAPI khusus inferensi ML. Next.js dan Expo mengonsumsi API Node.js dengan kontrak OpenAPI yang sama. Node.js mengelola autentikasi, izin, pengguna, laporan, status, statistik, database, dan foto. FastAPI menerima gambar melalui jaringan privat, melakukan preprocessing Pillow, lalu menjalankan model TensorFlow. Layanan ML tidak memiliki database, login pengguna, atau endpoint laporan. Model tidak melakukan panggilan ke OpenAI dan tidak memerlukan API key penyedia AI.
 
 ```mermaid
 flowchart LR
   Web[Next.js / browser] --> Proxy[Reverse proxy HTTPS]
   Mobile[APK Expo] --> Proxy
   Proxy --> Next[Next.js server]
-  Proxy --> API[FastAPI]
+  Proxy --> API[Node.js / Fastify]
   API --> DB[(PostgreSQL)]
   API --> Media[(Volume media)]
-  API --> Model[Model Keras lokal]
+  API --> ML[FastAPI ML privat]
+  ML --> Model[Model Keras lokal]
   Colab[Google Colab training] --> Artifacts[Model + metadata + evaluasi]
   Artifacts --> Model
 ```
@@ -84,7 +85,9 @@ erDiagram
 - Soft delete mempertahankan audit dan foto. Tidak ada fitur hard delete dalam aplikasi.
 - Prediksi saat submit dihitung kembali oleh server, tidak dipercayai dari payload client. Mengubah foto membuat catatan prediksi baru; mengoreksi kategori tidak mengubah hasil AI asli.
 - Filter tanggal menggunakan hari UTC secara inklusif; antarmuka menampilkan waktu sesuai zona perangkat.
-- PostgreSQL adalah target deployment. SQLite hanya fallback development/test cepat; CI juga menguji PostgreSQL.
+- PostgreSQL dipakai pada development, deployment, dan pengujian integrasi. Migrasi SQL Node.js mempertahankan tabel deployment lama; Alembic tidak lagi dijalankan.
+- Foto untuk penyimpanan dinormalisasi Sharp tanpa EXIF. Layanan ML menerima upload asli dan menjalankan canonicalization Pillow yang sama dengan dataset Colab sebelum inferensi; hasil disimpan terpisah dari kategori manual.
+- Hanya Node.js yang mengakses PostgreSQL dan volume media. Model di-mount read-only pada layanan ML. Token internal ML dipisahkan dari JWT secret dan tidak diberikan kepada web/mobile.
 
 ## Keamanan sesi
 

@@ -1,6 +1,6 @@
 # Panduan API
 
-Kontrak lengkap: `packages/api-client/openapi.json`. Saat server berjalan: `/api/docs`, `/api/redoc`, `/api/openapi.json`. Kontrak frontend dihasilkan dengan `pnpm api:generate`, setelah `python -m smart_waste.cli openapi` dari direktori API.
+Sumber kontrak: `services/api/openapi.json`, dipakai untuk validasi request Node.js/Fastify. `pnpm api:generate` menyalinnya ke `packages/api-client/openapi.json` dan menghasilkan tipe TypeScript. Dokumentasi interaktif tersedia di `/api/docs`; JSON di `/api/openapi.json`.
 
 | Metode               | Endpoint `/api/v1`     | Akses / perilaku                                           |
 | -------------------- | ---------------------- | ---------------------------------------------------------- |
@@ -33,3 +33,5 @@ Query laporan: `q`, `status`, `category`, `start_date`, `end_date`, `page` (mula
 Kesalahan memakai `{detail, errors?}` tanpa memasukkan password/input mentah: 401 sesi tidak valid, 403 izin/CSRF/Origin, 404 objek tidak ditemukan atau bukan milik pengguna, 409 konflik workflow/email/Admin terakhir, 413 ukuran unggahan, 422 validasi, 429 batas percobaan, 503 ML belum tersedia. Detail laporan menyertakan `history` dan `predictions`.
 
 `/api/health` mengembalikan liveness dan `model_loaded`; `/api/ready` memeriksa koneksi database. Business API boleh siap tanpa model agar fallback manual berfungsi. Pengumpulan akhir tetap memerlukan model asli dan target evaluasi yang tercapai.
+
+Website dan Android hanya mengakses Node.js. Endpoint publik `/api/v1/predictions` memeriksa autentikasi lalu meneruskan gambar ke `POST /predict` pada FastAPI privat dengan `X-ML-Service-Token`. FastAPI tidak dipublikasikan oleh proxy dan tidak menerima token pengguna. Gangguan atau timeout ML menghasilkan 503 pada prediksi mandiri; laporan tetap tersimpan dengan kategori manual serta audit `unavailable`.

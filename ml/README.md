@@ -14,7 +14,7 @@ Setelah satu wakil dipilih per kelompok duplikat, split stratified menghasilkan 
 
 ## Kontrak artefak
 
-Salin isi `smart-waste-artifacts.zip` hasil Colab ke `ml/artifacts/` (diabaikan Git). API memerlukan `model.keras` dan `metadata.json`; urutan label **organic, paper, plastic**, RGB 224x224 bilinear, nilai input 0..255. Rescaling MobileNetV2 berada di dalam model, jangan dilakukan dua kali. Canonicalization foto training sama dengan server: EXIF transpose, RGB, maksimal 2048 px, JPEG quality 88.
+Salin isi `smart-waste-artifacts.zip` hasil Colab ke `ml/artifacts/` (diabaikan Git). Layanan FastAPI ML memerlukan `model.keras` dan `metadata.json`; urutan label **organic, paper, plastic**, RGB 224x224 bilinear, nilai input 0..255. Rescaling MobileNetV2 berada di dalam model, jangan dilakukan dua kali. Canonicalization foto training sama dengan inferensi FastAPI: Pillow EXIF transpose, RGB, maksimal 2048 px, JPEG quality 88. Node.js meneruskan upload asli ke layanan ML; JPEG untuk penyimpanan media diproses terpisah oleh Sharp.
 
 Hasil wajib: `evaluation.json`, `classification_report.txt`, `confusion_matrix.png`, `training_curves.png`, `training_history.json`, `manifest.csv`, `dataset_summary.json`, `test_predictions.npz`, model, metadata. Publikasikan artefak model/evaluasi sebagai GitHub Release, sertakan checksum. Dataset lengkap dapat diserahkan sebagai arsip sumber beserta link UCI dan manifest subset.
 
